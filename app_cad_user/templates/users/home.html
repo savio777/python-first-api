@@ -4,8 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Usuários</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        flex: 1;
+        height: 100vh;
+      }
+
+      h1 {
+        text-transform: uppercase;
+        margin-bottom: 32px;
+        font-size: 64px;
+        background: -webkit-linear-gradient(#eee, #333);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        font-size: 24px;
+      }
+
+      label {
+        background: -webkit-linear-gradient(#eee, #333);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      input {
+        margin-bottom: 16px;
+      }
+
+      button {
+        font-size: 16px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Usuários</h1>
+    <h1>Cadastro de Usuários</h1>
+
+    <form action="{% url 'listagem_usuarios' %}" method="post">
+      <label for="name">Nome</label>
+      <input type="text" name="name" id="name" />
+
+      <label for="yers">Idade</label>
+      <input type="text" name="yers" id="yers" />
+
+      <button type="submit">Enviar</button>
+    </form>
   </body>
 </html>
