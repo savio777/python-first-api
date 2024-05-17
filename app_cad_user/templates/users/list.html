@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuários</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>id</th>
+        <th>nome</th>
+        <th>idade</th>
+      </tr>
+
+      {%for user in users%}
+      <tr>
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.years}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+  </body>
+</html>

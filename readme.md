@@ -11,7 +11,7 @@
 - add new module in `settings` -> `INSTALLED_APPS`
 - add `views` views in `urls.py`
 - create model in `models.py` and run `python ./manage.py makemigrations`
-- run `python ./manage.py migrate`
+- run `python ./manage.py migrate` again
 
 ### plugins vscode:
 

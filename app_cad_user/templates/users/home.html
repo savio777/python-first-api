@@ -49,6 +49,7 @@
     <h1>Cadastro de Usuários</h1>
 
     <form action="{% url 'listagem_usuarios' %}" method="post">
+      {% csrf_token %}
       <label for="name">Nome</label>
       <input type="text" name="name" id="name" />
 
