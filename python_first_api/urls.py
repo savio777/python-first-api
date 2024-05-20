@@ -3,5 +3,5 @@ from app_cad_user import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("listagem_usuarios", views.usuarios, name="listagem_usuarios"),
+    path("list_users", views.views_users, name="list_users"),
 ]

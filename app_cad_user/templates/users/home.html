@@ -1,62 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Usuários</title>
-    <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: black;
-        flex: 1;
-        height: 100vh;
-      }
+{% extends "users/base.html" %} {% block content %}
 
-      h1 {
-        text-transform: uppercase;
-        margin-bottom: 32px;
-        font-size: 64px;
-        background: -webkit-linear-gradient(#eee, #333);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
+<h1 class="title">Cadastro de Usuários</h1>
 
-      form {
-        display: flex;
-        flex-direction: column;
-        font-size: 24px;
-      }
+<form class="box section" action="{% url 'list_users' %}" method="post">
+  {% csrf_token %}
 
-      label {
-        background: -webkit-linear-gradient(#eee, #333);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
+  <div class="field">
+    <label class="label" for="name">Nome</label>
+    <input class="input" type="text" name="name" id="name" />
+  </div>
 
-      input {
-        margin-bottom: 16px;
-      }
+  <div class="field">
+    <label class="label" for="yers">Idade</label>
+    <input class="input" type="text" name="yers" id="yers" />
+  </div>
 
-      button {
-        font-size: 16px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Cadastro de Usuários</h1>
+  <button class="button is-primary" type="submit">Enviar</button>
+</form>
 
-    <form action="{% url 'listagem_usuarios' %}" method="post">
-      {% csrf_token %}
-      <label for="name">Nome</label>
-      <input type="text" name="name" id="name" />
-
-      <label for="yers">Idade</label>
-      <input type="text" name="yers" id="yers" />
-
-      <button type="submit">Enviar</button>
-    </form>
-  </body>
-</html>
+{% endblock content %}

@@ -6,7 +6,7 @@ def home(req):
     return render(req, "users/home.html")
 
 
-def usuarios(req):
+def views_users(req):
     try:
         name = req.POST.get("name")
         years = req.POST.get("yers")
