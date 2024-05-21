@@ -5,6 +5,7 @@
 - init venv
 - `pip install django djangorestframework django-cors-headers `
 - `django-admin startproject <name_project>`
+- add new module in `settings` -> `INSTALLED_APPS` and configs of `cors` and `djangorestframework`
 - create models
 - `python ./manage.py makemigrations`
 - `python ./manage.py migrate`
@@ -12,10 +13,8 @@
 - `python ./manage.py createsuperuser`
 - `python ./manage.py runserver`
 - `python ./manage.py startapp <name_module>`
-- add new module in `settings` -> `INSTALLED_APPS` and configs of `cors` and `djangorestframework`
-- add `views` views in `urls.py`
-- create model in `models.py` and run `python ./manage.py makemigrations`
-- run `python ./manage.py migrate` again
+- create `serializers.py`
+- create `views` and add views in `urls.py`
 
 ### steps for connect sql server:
 
