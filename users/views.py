@@ -13,7 +13,14 @@ import json
 @api_view(["GET"])
 def list_all(req):
     if req.method == "GET":
-        users = Users.objects.all()
+        if req.GET.get("name") or req.GET.get("email") or req.GET.get("years"):
+            users = Users.objects.filter(
+                name__contains=req.GET.get("name"),
+                email__contains=req.GET.get("email"),
+                years__contains=req.GET.get("years"),
+            )
+        else:
+            users = Users.objects.all()
 
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)

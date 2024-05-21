@@ -15,6 +15,7 @@
 - `python ./manage.py startapp <name_module>`
 - create `serializers.py`
 - create `views` and add views in `urls.py`
+- test in browser `http://127.0.0.1:8000/api/users/?format=api`
 
 ### steps for connect sql server:
 
