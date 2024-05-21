@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id_public", "name", "email", "years", "createdAt", "updatedAt"]
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializerTasks(serializers.ModelSerializer):
     class Meta:
         model = UserTasks
         fields = "__all__"
