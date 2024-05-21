@@ -3,12 +3,16 @@
 ### steps:
 
 - init venv
-- `pip install django`
+- `pip install django djangorestframework django-cors-headers `
 - `django-admin startproject <name_project>`
+- create models
+- `python ./manage.py makemigrations`
 - `python ./manage.py migrate`
+- register model in `admin.py`
+- `python ./manage.py createsuperuser`
 - `python ./manage.py runserver`
 - `python ./manage.py startapp <name_module>`
-- add new module in `settings` -> `INSTALLED_APPS`
+- add new module in `settings` -> `INSTALLED_APPS` and configs of `cors` and `djangorestframework`
 - add `views` views in `urls.py`
 - create model in `models.py` and run `python ./manage.py makemigrations`
 - run `python ./manage.py migrate` again
@@ -32,8 +36,27 @@
 -d \
 mcr.microsoft.com/mssql/server:2022-latest`
 
+### files ex:
+
+![files](image.png)
+
+### version pip:
+
+```
+asgiref==3.8.1
+Django==5.0.6
+django-cors-headers==4.3.1
+djangorestframework==3.15.1
+mssql-django==1.5
+pyodbc==5.1.0
+pytz==2024.1
+sqlparse==0.5.0
+typing_extensions==4.11.0
+```
+
 ### links
 
 - [x] [Estrutura Básica de um Projeto em Django](https://www.youtube.com/watch?v=4u0aI-90KnU)
 - [x] [DJANGO - Como CRIAR um Sistema de CADASTRO do ZERO!](https://www.youtube.com/watch?v=-m5ywU8SW9E)
-- [ ] [Try Create Python API Rest](https://dev.to/brian101co/how-to-return-a-json-response-in-django-gen)
+- [x] [Try Create Python API Rest](https://dev.to/brian101co/how-to-return-a-json-response-in-django-gen)
+- [ ] [Como criar uma API em Django - Criando um CRUD - Aula Completa](https://www.youtube.com/watch?v=Q2tEqNfgIXM)
