@@ -6,9 +6,13 @@ import uuid
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
     id_public = models.UUIDField(auto_created=True, default=uuid.uuid4)
-    name = models.TextField(max_length=255, default="")
+    name = models.CharField(max_length=255, default="")
     email = models.EmailField(default="")
     years = models.IntegerField(default=0)
+    password = models.CharField(
+        max_length=255,
+        default="",
+    )
     createdAt = models.DateTimeField(
         auto_now_add=True,
         editable=False,
@@ -24,3 +28,9 @@ class Users(models.Model):
     # magic function
     def __str__(self) -> str:
         return f"id: {self.id} | name: {self.name}"
+
+
+class UserTasks(models.Model):
+    id = models.AutoField(primary_key=True)
+    nickname = models.CharField(max_length=100, default="")
+    task = models.CharField(max_length=255, default="")
