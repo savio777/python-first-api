@@ -7,8 +7,6 @@ from rest_framework import status
 from .models import Users
 from .serializers import UserSerializer
 
-import json
-
 
 @api_view(["GET"])
 def list_all(req):
