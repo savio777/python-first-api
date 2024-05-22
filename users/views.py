@@ -1,7 +1,9 @@
+from django.core.paginator import Paginator
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from hashlib import sha256
+from django.core.serializers import serialize
 import json
 
 from users.services import verifyIfEmailExist
@@ -9,27 +11,37 @@ from users.services import verifyIfEmailExist
 from .models import Users
 from .serializers import UserSerializer
 
+ITEM_PER_PAGE = 5
+
 
 @api_view(["GET"])
 def list_all(req):
     if req.method == "GET":
-        try:
-            if req.GET.get("name") or req.GET.get("email") or req.GET.get("years"):
-                users = Users.objects.filter(
-                    name__contains=req.GET.get("name"),
-                    email__contains=req.GET.get("email"),
-                    years__contains=req.GET.get("years"),
-                )
-            else:
-                users = Users.objects.all()
 
-            serializer = UserSerializer(users, many=True)
+        if req.GET.get("name") or req.GET.get("email") or req.GET.get("years"):
+            users = Users.objects.filter(
+                name__contains=req.GET.get("name"),
+                email__contains=req.GET.get("email"),
+                years__contains=req.GET.get("years"),
+            )
+        else:
+            users = Users.objects.all()
 
-            data = {"data": serializer.data, "lenght": len(serializer.data)}
+        page = req.GET.get("page") or 1
 
-            return Response(data)
-        except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        paginator = Paginator(users, ITEM_PER_PAGE)
+        pageSelected = paginator.get_page(page)
+
+        serializedList = UserSerializer(pageSelected, many=True)
+
+        data = {
+            "data": serializedList.data,
+            "page": int(page),
+            "pages": paginator.num_pages,
+            "count": paginator.count,
+        }
+
+        return Response(data)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -51,10 +63,9 @@ def get_by_id(req, id):
 def create(req):
     if req.method == "POST":
         try:
-
             bodyData = json.loads(req.body)
 
-            userExist = Users.objects.filter(email=bodyData.get("email"))
+            userExist = verifyIfEmailExist(bodyData.get("email"))
 
             if not userExist:
                 user = Users()
