@@ -17,13 +17,12 @@ class Users(models.Model):
         auto_now_add=True,
         editable=False,
     )
-    updatedAt = models.DateTimeField(default=now)
+    updatedAt = models.DateTimeField(auto_now=True)
     # caso tenha problemas com create e update, remover default now
 
-    def save(self, *args, **kwargs):
-        self.updatedAt = now()
-
-        return super(Users, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #    self.updatedAt = now()
+    #    return super(Users, self).save(*args, **kwargs)
 
     # magic function
     def __str__(self) -> str:
