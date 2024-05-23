@@ -3,17 +3,26 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from hashlib import sha256
-from django.core.serializers import serialize
+from drf_yasg.utils import swagger_auto_schema
 import json
 
 from users.services import verifyIfEmailExist
+from users.swagger_params_response import list_all_params, list_all_response
 
 from .models import Users
-from .serializers import UserSerializer
+from .serializers import (
+    UserSerializer,
+)
 
 ITEM_PER_PAGE = 5
 
 
+@swagger_auto_schema(
+    method="get",
+    operation_description="pegar lista paginada de usuários",
+    manual_parameters=list_all_params,
+    responses={200: list_all_response, 400: {}},
+)
 @api_view(["GET"])
 def list_all(req):
     if req.method == "GET":
