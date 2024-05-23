@@ -7,7 +7,8 @@ from drf_yasg.utils import swagger_auto_schema
 import json
 
 from users.services import verifyIfEmailExist
-from users.swagger_params_response import list_all_params, list_all_response
+from users.swagger_models import ResponseListAll
+from users.swagger_params_response import list_all_params
 
 from .models import Users
 from .serializers import (
@@ -21,7 +22,7 @@ ITEM_PER_PAGE = 5
     method="get",
     operation_description="pegar lista paginada de usuários",
     manual_parameters=list_all_params,
-    responses={200: list_all_response, 400: {}},
+    responses={200: ResponseListAll, 400: {}},
 )
 @api_view(["GET"])
 def list_all(req):

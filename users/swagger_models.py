@@ -1,26 +1,24 @@
-from typing import List
-from uuid import UUID
-from datetime import datetime
+from rest_framework import serializers
 
 
-class User:
-    idpublic: UUID
-    name: str
-    email: str
-    years: int
-    createdAt: datetime
-    updatedAt: datetime
+class User(serializers.Serializer):
+    idpublic = serializers.UUIDField()
+    name = serializers.CharField()
+    email = serializers.CharField()
+    years = serializers.IntegerField()
+    createdAt = serializers.DateTimeField()
+    updatedAt = serializers.DateTimeField()
 
 
-class ResponseListAll:
-    data: List[User]
-    page: int
-    pages: int
-    count: int
+class ResponseListAll(serializers.Serializer):
+    data = serializers.ListField(child=User())
+    page = serializers.IntegerField()
+    pages = serializers.IntegerField()
+    count = serializers.IntegerField()
 
 
-class QueryParamsListAll:
-    name: str
-    email: str
-    years: int
-    page: int
+class QueryParamsListAll(serializers.Serializer):
+    name = serializers.CharField()
+    email = serializers.CharField()
+    years = serializers.IntegerField()
+    page = serializers.IntegerField()
