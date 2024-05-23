@@ -1,5 +1,7 @@
 # python_first_api
 
+![alt text](./imgs/doc-ex.png)
+
 ### steps:
 
 - init venv
@@ -36,9 +38,9 @@
 -d \
 mcr.microsoft.com/mssql/server:2022-latest`
 
-### files ex:
+### structure files ex:
 
-![files](image.png)
+![files](./imgs/structure-files.png)
 
 ### version pip:
 
