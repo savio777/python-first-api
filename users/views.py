@@ -141,6 +141,29 @@ def edit(req, id):
     return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+@swagger_auto_schema(
+    method="delete",
+    operation_description="deletar usuário por id",
+    responses={200: User},
+)
+@api_view(["DELETE"])
+def delete_by_id(req, id):
+    if req.method == "DELETE":
+        try:
+            user = Users.objects.get(id_public=id)
+
+            if user:
+                user.delete()
+
+                serializer = UserSerializer(user)
+                return Response(serializer.data)
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 # def databaseEmDjangoEx():
 
 #     data = User.objects.get(pk='gabriel_nick')          # OBJETO
