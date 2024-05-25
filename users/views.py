@@ -116,25 +116,28 @@ def create(req):
 @api_view(["PUT"])
 def edit(req, id):
     if req.method == "PUT":
-        bodyData = json.loads(req.body)
+        try:
+            bodyData = json.loads(req.body)
 
-        user = Users.objects.get(id_public=id)
+            user = Users.objects.get(id_public=id)
 
-        if user:
-            user.name = bodyData.get("name") or user.name
-            user.years = bodyData.get("years") or user.years
-            user.password = (
-                bodyData.get("password")
-                if sha256(str(bodyData.get("password")).encode("utf-8")).hexdigest()
-                else user.password
-            )
+            if user:
+                user.name = bodyData.get("name") or user.name
+                user.years = bodyData.get("years") or user.years
+                user.password = (
+                    bodyData.get("password")
+                    if sha256(str(bodyData.get("password")).encode("utf-8")).hexdigest()
+                    else user.password
+                )
 
-            user.save()
+                user.save()
 
-            serializer = UserSerializer(user)
-            return Response(serializer.data)
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+                serializer = UserSerializer(user)
+                return Response(serializer.data)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     return Response(status=status.HTTP_404_NOT_FOUND)
 
 
