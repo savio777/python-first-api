@@ -1,7 +1,4 @@
 from drf_yasg import openapi
-from .serializers import (
-    ResponseListAllSerializer,
-)
 
 
 list_all_params = [
@@ -30,4 +27,3 @@ list_all_params = [
         type=openapi.TYPE_INTEGER,
     ),
 ]
-list_all_response = openapi.Response("response description", ResponseListAllSerializer)

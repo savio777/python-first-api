@@ -6,14 +6,12 @@ from hashlib import sha256
 from drf_yasg.utils import swagger_auto_schema
 import json
 
-from users.services import verifyIfEmailExist
-from users.swagger_models import ResponseListAll
-from users.swagger_params_response import list_all_params
-
 from .models import Users
-from .serializers import (
-    UserSerializer,
-)
+from .services import verifyIfEmailExist
+from .serializers import UserSerializer
+from .swagger_models import ResponseListAll, User
+from .swagger_params_response import list_all_params
+
 
 ITEM_PER_PAGE = 5
 
@@ -55,6 +53,11 @@ def list_all(req):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@swagger_auto_schema(
+    method="get",
+    operation_description="detalhes usuário por id",
+    responses={200: User},
+)
 @api_view(["GET"])
 def get_by_id(req, id):
     if req.method == "GET":
