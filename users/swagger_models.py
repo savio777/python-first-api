@@ -29,3 +29,9 @@ class CreateUserBodyData(serializers.Serializer):
     email = serializers.CharField()
     years = serializers.IntegerField()
     password = serializers.CharField()
+
+
+class EditUserBodyData(serializers.Serializer):
+    name = serializers.CharField()
+    years = serializers.IntegerField()
+    password = serializers.CharField()

@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path("", views.list_all, name="list_all"),
     path("<uuid:id>", views.get_by_id, name="get_by_id"),
+    path("edit/<uuid:id>", views.edit, name="edit"),
     path("create", views.create, name="create"),
 ]
 
