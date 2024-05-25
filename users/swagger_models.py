@@ -22,3 +22,10 @@ class QueryParamsListAll(serializers.Serializer):
     email = serializers.CharField()
     years = serializers.IntegerField()
     page = serializers.IntegerField()
+
+
+class CreateUserBodyData(serializers.Serializer):
+    name = serializers.CharField()
+    email = serializers.CharField()
+    years = serializers.IntegerField()
+    password = serializers.CharField()

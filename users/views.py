@@ -9,7 +9,7 @@ import json
 from .models import Users
 from .services import verifyIfEmailExist
 from .serializers import UserSerializer
-from .swagger_models import ResponseListAll, User
+from .swagger_models import CreateUserBodyData, ResponseListAll, User
 from .swagger_params_response import list_all_params
 
 
@@ -72,31 +72,34 @@ def get_by_id(req, id):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@swagger_auto_schema(
+    method="post",
+    operation_description="criação usuário",
+    request_body=CreateUserBodyData,
+    responses={200: User},
+)
 @api_view(["POST"])
 def create(req):
     if req.method == "POST":
-        try:
-            bodyData = json.loads(req.body)
+        bodyData = json.loads(req.body)
 
-            userExist = verifyIfEmailExist(bodyData.get("email"))
+        userExist = verifyIfEmailExist(bodyData.get("email"))
 
-            if not userExist:
-                user = Users()
+        if not userExist:
+            user = Users()
 
-                user.name = bodyData.get("name")
-                user.email = bodyData.get("email")
-                user.years = bodyData.get("years")
-                user.password = sha256(
-                    str(bodyData.get("password")).encode("utf-8")
-                ).hexdigest()
+            user.name = bodyData.get("name")
+            user.email = bodyData.get("email")
+            user.years = bodyData.get("years")
+            user.password = sha256(
+                str(bodyData.get("password")).encode("utf-8")
+            ).hexdigest()
 
-                user.save()
+            user.save()
 
-                serializer = UserSerializer(user)
-                return Response(serializer.data)
-            else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        except:
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
     return Response(status=status.HTTP_404_NOT_FOUND)
 
