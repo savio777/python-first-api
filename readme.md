@@ -19,6 +19,10 @@
 - create `views` and add views in `urls.py`
 - test in browser `http://127.0.0.1:8000/api/users/?format=api`
 
+### requirements:
+- create requirements: `pip freeze > requirements.txt`
+- after create venv: `pip install -r requirements.txt`
+
 ### steps for connect sql server:
 
 - `pip install mssql-django`
