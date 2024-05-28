@@ -18,11 +18,6 @@ class Users(models.Model):
         editable=False,
     )
     updatedAt = models.DateTimeField(auto_now=True)
-    # caso tenha problemas com create e update, remover default now
-
-    # def save(self, *args, **kwargs):
-    #    self.updatedAt = now()
-    #    return super(Users, self).save(*args, **kwargs)
 
     # magic function
     def __str__(self) -> str:
@@ -31,5 +26,18 @@ class Users(models.Model):
 
 class UserTasks(models.Model):
     id = models.AutoField(primary_key=True)
-    nickname = models.CharField(max_length=100, default="")
-    task = models.CharField(max_length=255, default="")
+    id_task_public = models.UUIDField(auto_created=True, default=uuid.uuid4)
+    title = models.CharField(max_length=255, default="")
+    createdAt = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+    )
+    updatedAt = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(
+        Users, on_delete=models.CASCADE, related_name="tasks", default=0
+    )
+
+    def __str__(self) -> str:
+        return (
+            f"id: {self.id_task_public} | task: {self.title} | name: {self.user.name}"
+        )

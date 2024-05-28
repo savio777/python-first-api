@@ -1,8 +1,10 @@
 from rest_framework import serializers
 
+# users
+
 
 class User(serializers.Serializer):
-    idpublic = serializers.UUIDField()
+    id_public = serializers.UUIDField()
     name = serializers.CharField()
     email = serializers.CharField()
     years = serializers.IntegerField()
@@ -35,3 +37,18 @@ class EditUserBodyData(serializers.Serializer):
     name = serializers.CharField()
     years = serializers.IntegerField()
     password = serializers.CharField()
+
+
+# tasks
+
+
+class TaskSerializer(serializers.Serializer):
+    id_task_public = serializers.UUIDField()
+    title = serializers.CharField()
+    user = User()
+
+
+class UserTasksBodyData(serializers.Serializer):
+    title = serializers.CharField()
+    createdAt = serializers.DateTimeField()
+    updatedAt = serializers.DateTimeField()

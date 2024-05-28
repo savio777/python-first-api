@@ -6,10 +6,17 @@ from hashlib import sha256
 from drf_yasg.utils import swagger_auto_schema
 import json
 
-from .models import Users
+from .models import UserTasks, Users
 from .services import verifyIfEmailExist
-from .serializers import UserSerializer
-from .swagger_models import CreateUserBodyData, EditUserBodyData, ResponseListAll, User
+from .serializers import UserSerializer, UserSerializerTasks
+from .swagger_models import (
+    CreateUserBodyData,
+    EditUserBodyData,
+    ResponseListAll,
+    TaskSerializer,
+    User,
+    UserTasksBodyData,
+)
 from .swagger_params_response import list_all_params
 
 
@@ -159,6 +166,31 @@ def delete_by_id(req, id):
                 return Response(serializer.data)
             return Response(status=status.HTTP_404_NOT_FOUND)
         except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@swagger_auto_schema(
+    method="post",
+    operation_description="criação task por id usuário",
+    request_body=UserTasksBodyData,
+    responses={200: TaskSerializer},
+)
+@api_view(["POST"])
+def createTask(req, id_user):
+    if req.method == "POST":
+        user = Users.objects.get(id_public=id_user)
+        if user:
+            bodyData = json.loads(req.body)
+
+            task = UserTasks.objects.create(title=bodyData.get("title"), user=user)
+
+            serializerTask = UserSerializerTasks(task)
+            serializerUser = UserSerializer(user)
+
+            return Response({"task": serializerTask.data, "user": serializerUser.data})
+        else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
     return Response(status=status.HTTP_400_BAD_REQUEST)
