@@ -8,7 +8,8 @@ urlpatterns = [
     path("edit/<uuid:id>", views.edit, name="edit"),
     path("create", views.create, name="create"),
     path("delete/<uuid:id>", views.delete_by_id, name="delete_by_id"),
-    path("task/create/<uuid:id_user>", views.createTask, name="createTask"),
+    path("<uuid:id_user>/task/create/", views.createTask, name="createTask"),
+    path("tasks/", views.get_tasks_by_id_user, name="get_tasks_by_id_user"),
 ]
 
 # types params-> str | int | slug | path

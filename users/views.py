@@ -15,9 +15,11 @@ from .swagger_models import (
     ResponseListAll,
     TaskSerializer,
     User,
+    UserTaskCreateResponse,
+    UserTaskListResponse,
     UserTasksBodyData,
 )
-from .swagger_params_response import list_all_params
+from .swagger_params_response import list_all_params, list_all_tasks_params
 
 
 ITEM_PER_PAGE = 5
@@ -172,10 +174,68 @@ def delete_by_id(req, id):
 
 
 @swagger_auto_schema(
+    method="get",
+    operation_description="listagem de tasks",
+    manual_parameters=list_all_tasks_params,
+    responses={200: UserTaskListResponse},
+)
+@api_view(["GET"])
+def get_tasks_by_id_user(req):
+    if req.method == "GET":
+        id_user = req.GET.get("id_user")
+
+        if id_user:
+            user = Users.objects.get(id_public=id_user)
+
+            if user:
+                tasks = UserTasks.objects.filter(user=user)
+
+                page = req.GET.get("page") or 1
+
+                paginator = Paginator(tasks, ITEM_PER_PAGE)
+                pageSelected = paginator.get_page(page)
+
+                serializerTask = UserSerializerTasks(pageSelected, many=True)
+                serializerUser = UserSerializer(user)
+
+                return Response(
+                    {
+                        "data": serializerTask.data,
+                        "page": int(page),
+                        "pages": paginator.num_pages,
+                        "count": paginator.count,
+                        "user": serializerUser.data,
+                    }
+                )
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+        tasks = UserTasks.objects.all()
+
+        page = req.GET.get("page") or 1
+
+        paginator = Paginator(tasks, ITEM_PER_PAGE)
+        pageSelected = paginator.get_page(page)
+
+        serializerTask = UserSerializerTasks(pageSelected, many=True)
+
+        return Response(
+            {
+                "data": serializerTask.data,
+                "page": int(page),
+                "pages": paginator.num_pages,
+                "count": paginator.count,
+            }
+        )
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@swagger_auto_schema(
     method="post",
     operation_description="criação task por id usuário",
     request_body=UserTasksBodyData,
-    responses={200: TaskSerializer},
+    responses={200: UserTaskCreateResponse},
 )
 @api_view(["POST"])
 def createTask(req, id_user):

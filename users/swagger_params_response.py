@@ -27,3 +27,24 @@ list_all_params = [
         type=openapi.TYPE_INTEGER,
     ),
 ]
+
+list_all_tasks_params = [
+    openapi.Parameter(
+        "id_user",
+        openapi.IN_QUERY,
+        description="id user",
+        type=openapi.FORMAT_UUID,
+    ),
+    openapi.Parameter(
+        "title",
+        openapi.IN_QUERY,
+        description="title",
+        type=openapi.TYPE_STRING,
+    ),
+    openapi.Parameter(
+        "page",
+        openapi.IN_QUERY,
+        description="page",
+        type=openapi.TYPE_INTEGER,
+    ),
+]

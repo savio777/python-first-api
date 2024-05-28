@@ -45,10 +45,23 @@ class EditUserBodyData(serializers.Serializer):
 class TaskSerializer(serializers.Serializer):
     id_task_public = serializers.UUIDField()
     title = serializers.CharField()
+    createdAt = serializers.DateTimeField()
+    updatedAt = serializers.DateTimeField()
+    user = User()
+
+
+class UserTaskCreateResponse(serializers.Serializer):
+    task = TaskSerializer()
+    user = User()
+
+
+class UserTaskListResponse(serializers.Serializer):
+    data = serializers.ListField(child=TaskSerializer())
+    page = serializers.IntegerField()
+    pages = serializers.IntegerField()
+    count = serializers.IntegerField()
     user = User()
 
 
 class UserTasksBodyData(serializers.Serializer):
     title = serializers.CharField()
-    createdAt = serializers.DateTimeField()
-    updatedAt = serializers.DateTimeField()
