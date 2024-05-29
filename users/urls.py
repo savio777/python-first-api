@@ -10,6 +10,7 @@ urlpatterns = [
     path("delete/<uuid:id>", views.delete_by_id, name="delete_by_id"),
     path("<uuid:id_user>/task/create/", views.createTask, name="createTask"),
     path("tasks/", views.get_tasks_by_id_user, name="get_tasks_by_id_user"),
+    path("tasks/edit/<uuid:id_task>", views.editTask, name="editTask"),
 ]
 
 # types params-> str | int | slug | path

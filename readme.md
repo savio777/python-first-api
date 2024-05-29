@@ -90,4 +90,5 @@ urllib3==2.2.1
 - [x] [DJANGO - Como CRIAR um Sistema de CADASTRO do ZERO!](https://www.youtube.com/watch?v=-m5ywU8SW9E)
 - [x] [Try Create Python API Rest](https://dev.to/brian101co/how-to-return-a-json-response-in-django-gen)
 - [x] [Como criar uma API em Django - Criando um CRUD - Aula Completa](https://www.youtube.com/watch?v=Q2tEqNfgIXM)
-- [ ] [What's the difference between select_related and prefetch_related in Django ORM](https://stackoverflow.com/questions/31237042/whats-the-difference-between-select-related-and-prefetch-related-in-django-orm)
+- [x] [What's the difference between select_related and prefetch_related in Django ORM](https://stackoverflow.com/questions/31237042/whats-the-difference-between-select-related-and-prefetch-related-in-django-orm)
+- [x] [How Serializer One To Many](https://stackoverflow.com/questions/76328814/one-to-many-relationship-query-in-django-orm-where-i-want-to-query-on-one-table)
