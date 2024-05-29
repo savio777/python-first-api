@@ -261,12 +261,12 @@ def createTask(req, id_user):
 
 @swagger_auto_schema(
     method="put",
-    operation_description="criação task por id usuário",
+    operation_description="edição task por id task",
     request_body=UserTasksBodyData,
     responses={200: UserTaskCreateResponse},
 )
 @api_view(["PUT"])
-def editTask(req, id_task):
+def edit_task(req, id_task):
     if req.method == "PUT":
         try:
             task = UserTasks.objects.get(id_task_public=id_task)
@@ -285,6 +285,52 @@ def editTask(req, id_task):
                 return Response(status=status.HTTP_404_NOT_FOUND)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@swagger_auto_schema(
+    method="delete",
+    operation_description="delete task por id task",
+    responses={200: UserTaskCreateResponse},
+)
+@api_view(["DELETE"])
+def delete_task_by_id(req, id_task):
+    if req.method == "DELETE":
+        try:
+            task = UserTasks.objects.get(id_task_public=id_task)
+
+            if task:
+                task.delete()
+
+                serializerTask = UserTasksSerializer(task)
+
+                return Response(serializerTask.data)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@swagger_auto_schema(
+    method="get",
+    operation_description="detalhes task por id task",
+    responses={200: UserTaskCreateResponse},
+)
+@api_view(["GET"])
+def get_task_by_id(req, id_task):
+    if req.method == "GET":
+        try:
+            task = UserTasks.objects.get(id_task_public=id_task)
+
+            if task:
+                serializerTask = UserTasksSerializer(task)
+
+                return Response(serializerTask.data)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
