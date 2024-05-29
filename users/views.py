@@ -210,7 +210,9 @@ def get_tasks_by_id_user(req):
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
-        tasks = UserTasks.objects.all()
+        tasks = UserTasks.objects.select_related("user").all()
+
+        print(tasks)
 
         page = req.GET.get("page") or 1
 
@@ -249,7 +251,7 @@ def createTask(req, id_user):
             serializerTask = UserTasksSerializer(task)
             serializerUser = UserSerializer(user)
 
-            return Response({"task": serializerTask.data, "user": serializerUser.data})
+            return Response({"task": serializerTask.data})
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

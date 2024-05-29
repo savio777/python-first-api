@@ -3,7 +3,6 @@ import uuid
 
 
 class Users(models.Model):
-    id = models.AutoField(primary_key=True)
     id_public = models.UUIDField(auto_created=True, default=uuid.uuid4)
     name = models.CharField(max_length=255, default="")
     email = models.EmailField(default="")
@@ -24,7 +23,6 @@ class Users(models.Model):
 
 
 class UserTasks(models.Model):
-    id = models.AutoField(primary_key=True)
     id_task_public = models.UUIDField(auto_created=True, default=uuid.uuid4)
     title = models.CharField(max_length=255, default="")
     createdAt = models.DateTimeField(
