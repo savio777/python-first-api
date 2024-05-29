@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.core.paginator import Paginator
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -8,12 +9,11 @@ import json
 
 from .models import UserTasks, Users
 from .services import verifyIfEmailExist
-from .serializers import UserSerializer, UserSerializerTasks
+from .serializers import UserSerializer, UserTasksSerializer
 from .swagger_models import (
     CreateUserBodyData,
     EditUserBodyData,
     ResponseListAll,
-    TaskSerializer,
     User,
     UserTaskCreateResponse,
     UserTaskListResponse,
@@ -195,7 +195,7 @@ def get_tasks_by_id_user(req):
                 paginator = Paginator(tasks, ITEM_PER_PAGE)
                 pageSelected = paginator.get_page(page)
 
-                serializerTask = UserSerializerTasks(pageSelected, many=True)
+                serializerTask = UserTasksSerializer(pageSelected, many=True)
                 serializerUser = UserSerializer(user)
 
                 return Response(
@@ -217,7 +217,7 @@ def get_tasks_by_id_user(req):
         paginator = Paginator(tasks, ITEM_PER_PAGE)
         pageSelected = paginator.get_page(page)
 
-        serializerTask = UserSerializerTasks(pageSelected, many=True)
+        serializerTask = UserTasksSerializer(pageSelected, many=True)
 
         return Response(
             {
@@ -246,7 +246,7 @@ def createTask(req, id_user):
 
             task = UserTasks.objects.create(title=bodyData.get("title"), user=user)
 
-            serializerTask = UserSerializerTasks(task)
+            serializerTask = UserTasksSerializer(task)
             serializerUser = UserSerializer(user)
 
             return Response({"task": serializerTask.data, "user": serializerUser.data})

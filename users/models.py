@@ -32,9 +32,7 @@ class UserTasks(models.Model):
         editable=False,
     )
     updatedAt = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(
-        Users, on_delete=models.CASCADE, related_name="tasks", default=0
-    )
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, default=0)
 
     def __str__(self) -> str:
         return (
